@@ -1,0 +1,89 @@
+ESTADÍSTICA BASES DE DATOS 
+
+BASE DE DATOS DE DESEMPLEO A NIVEL MUNDIAL 
+```{r}
+library (rio)
+Desempleo="https://github.com/claudia1006/PROYECTO/raw/master/DESEMPLEO.xlsx"
+dataexcel1d=import(Desempleo)
+
+```
+
+```{r}
+dim(dataexcel1d)#filas #columnas 
+```
+
+```{r}
+row.names(dataexcel1d)=dataexcel1d$Country
+```
+
+
+```{r}
+library(stringr)
+library(magrittr)
+```
+
+```{r}
+names(dataexcel1d)[1]='Country'
+```
+
+```{r}
+dataexcel1d$'2017'=as.numeric(dataexcel1d$`2017`)
+```
+
+```{r}
+str(dataexcel1d)
+```
+
+```{r}
+dataexcel1d=na.omit(dataexcel1d)
+```
+
+
+```{r}
+summary(dataexcel1d)
+```
+
+
+BASE DE DATOS DE GDP A NIVEL MUNDIAL 
+```{r}
+GDP="https://github.com/claudia1006/PROYECTO/raw/master/GDP%20PER%20CAPITA%20CURRENT%20%24.xlsx"
+dataexcel2gdp=import(GDP)
+```
+
+```{r}
+names(dataexcel2gdp)[1]='Country'
+```
+
+```{r}
+row.names(dataexcel2gdp)=dataexcel2gdp$Country
+```
+
+```{r}
+dataexcel2gdp$'2017'=as.numeric(dataexcel2gdp$`2017`) # a numerico
+```
+
+```{r}
+str(dataexcel2gdp)
+```
+
+```{r}
+dataexcel2gdp=na.omit(dataexcel2gdp)
+```
+
+```{r}
+summary(dataexcel2gdp)
+```
+
+```{r}
+names(dataexcel1d)[2]="2017 DESEMPLEO"
+names(dataexcel2gdp)[2]="2017 GDP PER CAPITA EN $"
+```
+
+```{r}
+DesempleoyGDP=merge(dataexcel1d,dataexcel2gdp, by.x="Country", by.y="Country")
+```
+
+```{r}
+summary(DesempleoyGDP)
+```
+
